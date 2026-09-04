@@ -10,112 +10,354 @@
 
 <style>
 *{box-sizing:border-box}
+
 body{
 margin:0;
+background:#eee2d5;
+color:#5b463d;
 font-family:Georgia,serif;
-background:#f7efe5;
-color:#5b4840;
+overflow-x:hidden;
 }
-header{text-align:center;padding:35px 15px 20px}
-h1{font-size:42px;margin:0 0 8px}
-header p{color:#92786c}
+
+header{
+text-align:center;
+padding:35px 15px 18px;
+}
+
+header h1{
+margin:0;
+font-size:42px;
+letter-spacing:1px;
+}
+
+header p{
+margin:8px 0 0;
+color:#92766a;
+font-style:italic;
+}
 
 .room{
-max-width:900px;
-min-height:600px;
-margin:20px auto;
-padding:35px 20px 80px;
-background:#ead8c8;
-border-radius:30px;
-box-shadow:0 15px 40px #8b6b5b33;
+position:relative;
+max-width:1000px;
+height:650px;
+margin:20px auto 40px;
+overflow:hidden;
+border-radius:32px;
+background:
+linear-gradient(to bottom,#d8c2ae 0 72%,#a77d61 72% 100%);
+box-shadow:0 25px 60px #5b463d33;
 }
 
-.welcome{text-align:center;margin-bottom:30px}
-.welcome h2{font-size:30px}
+/* WINDOW */
 
-.items{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:18px;
-max-width:700px;
-margin:auto;
+.window{
+position:absolute;
+top:55px;
+left:70px;
+width:190px;
+height:170px;
+background:#a9c6ca;
+border:12px solid #f8f1e9;
+border-radius:8px;
+box-shadow:0 8px 20px #5b463d22;
 }
 
-.item{
+.window:before{
+content:"";
+position:absolute;
+left:50%;
+top:0;
+width:7px;
+height:100%;
+background:#f8f1e9;
+}
+
+.window:after{
+content:"";
+position:absolute;
+top:50%;
+left:0;
+width:100%;
+height:7px;
+background:#f8f1e9;
+}
+
+.curtain{
+position:absolute;
+top:-10px;
+width:35px;
+height:190px;
+background:#b98d78;
+opacity:.85;
+}
+
+.curtain.left{left:-38px}
+.curtain.right{right:-38px}
+
+/* WALL ART */
+
+.frame{
+position:absolute;
+top:65px;
+right:100px;
+width:110px;
+height:125px;
+background:#f9f1e7;
+border:8px solid #8b6758;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:55px;
+transform:rotate(3deg);
+box-shadow:0 8px 15px #5b463d22;
+}
+
+/* SHELF */
+
+.shelf{
+position:absolute;
+left:45px;
+bottom:125px;
+width:240px;
+height:20px;
+background:#765546;
+border-radius:5px;
+box-shadow:0 8px 10px #5b463d44;
+}
+
+.shelf:before{
+content:"📚  📖  🌿  📕  📗";
+position:absolute;
+bottom:17px;
+left:15px;
+font-size:34px;
+letter-spacing:3px;
+}
+
+/* PLANT */
+
+.plant{
+position:absolute;
+right:55px;
+bottom:125px;
+font-size:100px;
+filter:drop-shadow(0 8px 5px #5b463d33);
+animation:sway 4s ease-in-out infinite;
+}
+
+@keyframes sway{
+0%,100%{transform:rotate(-2deg)}
+50%{transform:rotate(2deg)}
+}
+
+/* DESK */
+
+.desk{
+position:absolute;
+right:155px;
+bottom:85px;
+width:310px;
+height:25px;
+background:#765546;
+border-radius:6px;
+}
+
+.desk:before,
+.desk:after{
+content:"";
+position:absolute;
+top:20px;
+width:18px;
+height:150px;
+background:#765546;
+}
+
+.desk:before{left:25px}
+.desk:after{right:25px}
+
+.lamp{
+position:absolute;
+right:245px;
+bottom:115px;
+font-size:60px;
+animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+from{filter:brightness(1)}
+to{filter:brightness(1.15)}
+}
+
+/* CHAIR */
+
+.chair{
+position:absolute;
+right:205px;
+bottom:35px;
+font-size:100px;
+transform:scaleX(.9);
+}
+
+/* RUG */
+
+.rug{
+position:absolute;
+bottom:12px;
+left:50%;
+transform:translateX(-50%);
+width:430px;
+height:120px;
+border-radius:50%;
+background:#c89f87;
+opacity:.9;
+}
+
+/* CLICKABLE OBJECTS */
+
+.hotspot{
+position:absolute;
 border:0;
-background:#fffaf5;
-border-radius:22px;
-padding:25px 10px;
-font-family:Georgia,serif;
-font-size:17px;
-color:#5b4840;
+background:transparent;
 cursor:pointer;
-box-shadow:0 6px 15px #8b6b5b22;
-transition:.2s;
+z-index:3;
 }
 
-.item:hover{transform:translateY(-4px)}
-.emoji{display:block;font-size:45px;margin-bottom:10px}
+.hotspot span{
+display:block;
+background:#fff9f2dd;
+padding:7px 11px;
+border-radius:20px;
+font-size:13px;
+opacity:0;
+transform:translateY(5px);
+transition:.3s;
+pointer-events:none;
+}
+
+.hotspot:hover span{
+opacity:1;
+transform:translateY(0);
+}
+
+.bookspot{
+left:50px;
+bottom:145px;
+width:230px;
+height:110px;
+}
+
+.musicspot{
+right:80px;
+bottom:150px;
+width:180px;
+height:100px;
+}
+
+.diaryspot{
+right:270px;
+bottom:135px;
+width:90px;
+height:70px;
+}
+
+/* BOTTOM NOTE */
+
+.note{
+position:absolute;
+left:50%;
+bottom:28px;
+transform:translateX(-50%);
+background:#f8e7b9;
+padding:10px 18px;
+font-size:14px;
+box-shadow:0 5px 12px #5b463d33;
+transform-origin:center;
+animation:note 3s ease-in-out infinite;
+}
+
+@keyframes note{
+0%,100%{transform:translateX(-50%) rotate(-2deg)}
+50%{transform:translateX(-50%) rotate(2deg)}
+}
+
+/* MODALS */
 
 .modal{
 display:none;
 position:fixed;
 inset:0;
-background:#39251f88;
+background:#38271f99;
+z-index:20;
 align-items:center;
 justify-content:center;
 padding:20px;
-z-index:5;
 }
 
 .box{
-background:#fffaf5;
-width:min(600px,100%);
+position:relative;
+width:min(620px,100%);
 max-height:85vh;
 overflow:auto;
-border-radius:25px;
-padding:25px;
-position:relative;
+background:#fffaf4;
+border-radius:28px;
+padding:28px;
+box-shadow:0 25px 70px #0004;
+animation:pop .25s ease;
+}
+
+@keyframes pop{
+from{transform:scale(.9);opacity:0}
+to{transform:scale(1);opacity:1}
 }
 
 .close{
 position:absolute;
-right:15px;
-top:10px;
+right:18px;
+top:12px;
 border:0;
 background:none;
 font-size:28px;
 cursor:pointer;
+color:#765546;
 }
 
-.box h2{text-align:center}
+.box h2{
+text-align:center;
+font-size:28px;
+}
 
 input,textarea{
 width:100%;
-padding:12px;
-border:1px solid #d8c1b2;
-border-radius:12px;
-margin:7px 0;
+padding:13px;
+border:1px solid #d9c1b2;
+border-radius:13px;
 font-family:inherit;
+margin:7px 0;
+background:#fffdf9;
 }
 
-textarea{min-height:120px}
+textarea{
+min-height:130px;
+resize:vertical;
+}
 
 .add{
 width:100%;
+padding:13px;
 border:0;
-padding:12px;
-border-radius:12px;
-background:#d7b7a1;
+border-radius:13px;
+background:#b98d78;
 color:white;
 font-family:inherit;
 cursor:pointer;
 }
 
-.list{margin-top:20px}
+.list{
+margin-top:20px;
+}
 
 .saved{
-background:#f7efe5;
+background:#f5e9dd;
 padding:12px;
 border-radius:14px;
 margin:8px 0;
@@ -124,17 +366,85 @@ justify-content:space-between;
 align-items:center;
 }
 
-.del{
+.delete{
 border:0;
-background:#ead0c5;
+background:#e7cfc2;
 border-radius:8px;
 padding:5px 9px;
 cursor:pointer;
 }
 
-@media(max-width:600px){
-.items{grid-template-columns:repeat(2,1fr)}
-h1{font-size:36px}
+/* MOBILE */
+
+@media(max-width:700px){
+
+header h1{
+font-size:35px;
+}
+
+.room{
+height:680px;
+margin:15px;
+}
+
+.window{
+left:25px;
+width:150px;
+height:130px;
+}
+
+.frame{
+right:25px;
+width:80px;
+height:95px;
+font-size:40px;
+}
+
+.shelf{
+left:25px;
+width:190px;
+}
+
+.plant{
+right:15px;
+font-size:70px;
+}
+
+.desk{
+right:80px;
+width:230px;
+}
+
+.lamp{
+right:230px;
+font-size:45px;
+}
+
+.chair{
+right:105px;
+font-size:75px;
+}
+
+.rug{
+width:340px;
+}
+
+.bookspot{
+left:20px;
+}
+
+.musicspot{
+right:15px;
+}
+
+.diaryspot{
+right:180px;
+}
+
+.note{
+white-space:nowrap;
+font-size:12px;
+}
 }
 </style>
 </head>
@@ -148,40 +458,61 @@ h1{font-size:36px}
 
 <div class="room">
 
-<div class="welcome">
-<h2>Welcome home ✨</h2>
-<p>Choose a little corner to explore.</p>
+<div class="window">
+<div class="curtain left"></div>
+<div class="curtain right"></div>
 </div>
 
-<div class="items">
+<div class="frame">🌸</div>
 
-<button class="item" onclick="openBox('books')">
-<span class="emoji">📚</span>Bookshelf
+<div class="shelf"></div>
+
+<div class="plant">🪴</div>
+
+<div class="rug"></div>
+
+<div class="desk"></div>
+
+<div class="lamp">💡</div>
+
+<div class="chair">🪑</div>
+
+<button class="hotspot bookspot" onclick="openBox('books')">
+<span>📚 open bookshelf</span>
 </button>
 
-<button class="item" onclick="openBox('music')">
-<span class="emoji">🎧</span>Music
+<button class="hotspot musicspot" onclick="openBox('music')">
+<span>🎧 open music</span>
 </button>
 
-<button class="item" onclick="openBox('watch')">
-<span class="emoji">🎬</span>Watchlist
+<button class="hotspot diaryspot" onclick="openBox('diary')">
+<span>📓 open diary</span>
 </button>
 
-<button class="item" onclick="openBox('memories')">
-<span class="emoji">🖼️</span>Memories
+<button class="hotspot"
+style="left:40%;top:40%;width:150px;height:100px"
+onclick="openBox('watch')">
+<span>🎬 watchlist</span>
 </button>
 
-<button class="item" onclick="openBox('favorites')">
-<span class="emoji">🌸</span>Favorites
+<button class="hotspot"
+style="left:42%;top:55%;width:150px;height:80px"
+onclick="openBox('memories')">
+<span>🖼️ memories</span>
 </button>
 
-<button class="item" onclick="openBox('diary')">
-<span class="emoji">📓</span>Diary
+<button class="hotspot"
+style="right:40px;top:40px;width:130px;height:140px"
+onclick="openBox('favorites')">
+<span>🌸 favorites</span>
 </button>
+
+<div class="note">"make this little world yours ♡"</div>
 
 </div>
-</div>
 
+
+<!-- BOOKS -->
 
 <div class="modal" id="books">
 <div class="box">
@@ -189,12 +520,17 @@ h1{font-size:36px}
 <h2>📚 My Bookshelf</h2>
 
 <input id="bookInput" placeholder="Enter a book name...">
-<button class="add" onclick="addBook()">Add book ✨</button>
+
+<button class="add" onclick="addBook()">
+Add to bookshelf ✨
+</button>
 
 <div class="list" id="bookList"></div>
 </div>
 </div>
 
+
+<!-- MUSIC -->
 
 <div class="modal" id="music">
 <div class="box">
@@ -202,12 +538,17 @@ h1{font-size:36px}
 <h2>🎧 My Music</h2>
 
 <input id="musicInput" placeholder="Song or artist...">
-<button class="add" onclick="addItem('music')">Add song 🎵</button>
+
+<button class="add" onclick="addItem('music')">
+Add song 🎵
+</button>
 
 <div class="list" id="musicList"></div>
 </div>
 </div>
 
+
+<!-- WATCH -->
 
 <div class="modal" id="watch">
 <div class="box">
@@ -215,46 +556,67 @@ h1{font-size:36px}
 <h2>🎬 My Watchlist</h2>
 
 <input id="watchInput" placeholder="Movie, anime or series...">
-<button class="add" onclick="addItem('watch')">Add 🎬</button>
+
+<button class="add" onclick="addItem('watch')">
+Add to watchlist 🎬
+</button>
 
 <div class="list" id="watchList"></div>
 </div>
 </div>
 
 
+<!-- MEMORIES -->
+
 <div class="modal" id="memories">
 <div class="box">
 <button class="close" onclick="closeBox('memories')">×</button>
 <h2>🖼️ My Memories</h2>
 
-<textarea id="memoriesInput" placeholder="Write about a memory..."></textarea>
-<button class="add" onclick="addItem('memories')">Save memory 🌷</button>
+<textarea id="memoriesInput"
+placeholder="Write about a memory..."></textarea>
+
+<button class="add" onclick="addItem('memories')">
+Save memory 🌷
+</button>
 
 <div class="list" id="memoriesList"></div>
 </div>
 </div>
 
 
+<!-- FAVORITES -->
+
 <div class="modal" id="favorites">
 <div class="box">
 <button class="close" onclick="closeBox('favorites')">×</button>
 <h2>🌸 My Favorites</h2>
 
-<input id="favoritesInput" placeholder="Something you love...">
-<button class="add" onclick="addItem('favorites')">Add favorite 💗</button>
+<input id="favoritesInput"
+placeholder="Something you love...">
+
+<button class="add" onclick="addItem('favorites')">
+Add favorite 💗
+</button>
 
 <div class="list" id="favoritesList"></div>
 </div>
 </div>
 
 
+<!-- DIARY -->
+
 <div class="modal" id="diary">
 <div class="box">
 <button class="close" onclick="closeBox('diary')">×</button>
 <h2>📓 My Diary</h2>
 
-<textarea id="diaryInput" placeholder="Write something..."></textarea>
-<button class="add" onclick="addItem('diary')">Save entry 📝</button>
+<textarea id="diaryInput"
+placeholder="Write something..."></textarea>
+
+<button class="add" onclick="addItem('diary')">
+Save entry 📝
+</button>
 
 <div class="list" id="diaryList"></div>
 </div>
@@ -288,12 +650,14 @@ books.push(name);
 localStorage.setItem("books",JSON.stringify(books));
 
 input.value="";
+
 showBooks();
 }
 
 function showBooks(){
 
 let list=document.getElementById("bookList");
+
 let books=JSON.parse(localStorage.getItem("books")||"[]");
 
 list.innerHTML="";
@@ -303,7 +667,8 @@ books.forEach((book,i)=>{
 list.innerHTML+=`
 <div class="saved">
 <span>📖 ${book}</span>
-<button class="del" onclick="deleteBook(${i})">×</button>
+<button class="delete"
+onclick="deleteBook(${i})">×</button>
 </div>
 `;
 
@@ -327,6 +692,7 @@ showBooks();
 function addItem(type){
 
 let input=document.getElementById(type+"Input");
+
 let value=input.value.trim();
 
 if(!value)return;
@@ -345,6 +711,7 @@ showItems(type);
 function showItems(type){
 
 let list=document.getElementById(type+"List");
+
 let data=JSON.parse(localStorage.getItem(type)||"[]");
 
 list.innerHTML="";
@@ -354,7 +721,12 @@ data.forEach((item,i)=>{
 list.innerHTML+=`
 <div class="saved">
 <span>${item}</span>
-<button class="del" onclick="deleteItem('${type}',${i})">×</button>
+
+<button class="delete"
+onclick="deleteItem('${type}',${i})">
+×
+</button>
+
 </div>
 `;
 
@@ -373,18 +745,22 @@ showItems(type);
 }
 
 
-/* LOAD SAVED ITEMS */
+/* LOAD SAVED DATA */
 
 showBooks();
 
-["music","watch","memories","favorites","diary"].forEach(showItems);
+["music","watch","memories","favorites","diary"]
+.forEach(showItems);
 
 
-/* APP SERVICE WORKER */
+/* APP */
 
 if("serviceWorker" in navigator){
 
-navigator.serviceWorker.register("sw.js");
+navigator.serviceWorker.register("sw.js")
+.catch(function(error){
+console.log("Service worker error:",error);
+});
 
 }
 
