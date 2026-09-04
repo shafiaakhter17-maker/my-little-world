@@ -3,189 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>My Little World 🌷</title>
 
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#ead8c8">
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:Georgia,serif;
+background:#f7efe5;
+color:#5b4840;
+}
+header{text-align:center;padding:35px 15px 20px}
+h1{font-size:42px;margin:0 0 8px}
+header p{color:#92786c}
+
+.room{
+max-width:900px;
+min-height:600px;
+margin:20px auto;
+padding:35px 20px 80px;
+background:#ead8c8;
+border-radius:30px;
+box-shadow:0 15px 40px #8b6b5b33;
 }
 
-body {
-  margin: 0;
-  font-family: Georgia, serif;
-  background: #f7efe5;
-  color: #5b4840;
+.welcome{text-align:center;margin-bottom:30px}
+.welcome h2{font-size:30px}
+
+.items{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px;
+max-width:700px;
+margin:auto;
 }
 
-header {
-  text-align: center;
-  padding: 35px 20px 20px;
+.item{
+border:0;
+background:#fffaf5;
+border-radius:22px;
+padding:25px 10px;
+font-family:Georgia,serif;
+font-size:17px;
+color:#5b4840;
+cursor:pointer;
+box-shadow:0 6px 15px #8b6b5b22;
+transition:.2s;
 }
 
-header h1 {
-  font-size: 42px;
-  margin: 0;
+.item:hover{transform:translateY(-4px)}
+.emoji{display:block;font-size:45px;margin-bottom:10px}
+
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:#39251f88;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:5;
 }
 
-header p {
-  color: #92786c;
+.box{
+background:#fffaf5;
+width:min(600px,100%);
+max-height:85vh;
+overflow:auto;
+border-radius:25px;
+padding:25px;
+position:relative;
 }
 
-.room {
-  max-width: 950px;
-  min-height: 620px;
-  margin: 20px auto;
-  background: #ead8c8;
-  border-radius: 30px;
-  position: relative;
-  overflow: hidden;
-  padding: 35px 25px 100px;
-  box-shadow: 0 15px 40px rgba(70,50,40,.15);
+.close{
+position:absolute;
+right:15px;
+top:10px;
+border:0;
+background:none;
+font-size:28px;
+cursor:pointer;
 }
 
-.welcome {
-  text-align: center;
-  margin-bottom: 35px;
+.box h2{text-align:center}
+
+input,textarea{
+width:100%;
+padding:12px;
+border:1px solid #d8c1b2;
+border-radius:12px;
+margin:7px 0;
+font-family:inherit;
 }
 
-.welcome h2 {
-  font-size: 30px;
+textarea{min-height:120px}
+
+.add{
+width:100%;
+border:0;
+padding:12px;
+border-radius:12px;
+background:#d7b7a1;
+color:white;
+font-family:inherit;
+cursor:pointer;
 }
 
-.items {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  max-width: 700px;
-  margin: auto;
+.list{margin-top:20px}
+
+.saved{
+background:#f7efe5;
+padding:12px;
+border-radius:14px;
+margin:8px 0;
+display:flex;
+justify-content:space-between;
+align-items:center;
 }
 
-.item {
-  border: none;
-  background: #fffaf5;
-  border-radius: 22px;
-  padding: 25px 10px;
-  font-family: Georgia, serif;
-  font-size: 18px;
-  color: #5b4840;
-  cursor: pointer;
-  box-shadow: 0 6px 15px rgba(70,50,40,.1);
-  transition: .2s;
+.del{
+border:0;
+background:#ead0c5;
+border-radius:8px;
+padding:5px 9px;
+cursor:pointer;
 }
 
-.item:hover {
-  transform: translateY(-5px);
-}
-
-.emoji {
-  display: block;
-  font-size: 45px;
-  margin-bottom: 10px;
-}
-
-.floor {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 65px;
-  background: #b98c69;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(50,35,30,.45);
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  z-index: 10;
-}
-
-.modal-box {
-  background: #fffaf5;
-  width: min(600px,100%);
-  max-height: 85vh;
-  overflow-y: auto;
-  border-radius: 25px;
-  padding: 25px;
-  position: relative;
-}
-
-.close {
-  position: absolute;
-  right: 18px;
-  top: 12px;
-  border: none;
-  background: none;
-  font-size: 25px;
-  cursor: pointer;
-}
-
-.modal-box h2 {
-  text-align: center;
-}
-
-input, textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #d8c1b2;
-  border-radius: 12px;
-  margin: 8px 0;
-  font-family: inherit;
-}
-
-textarea {
-  min-height: 130px;
-  resize: vertical;
-}
-
-.add-btn {
-  width: 100%;
-  border: none;
-  padding: 12px;
-  border-radius: 12px;
-  background: #d7b7a1;
-  color: #fff;
-  font-family: inherit;
-  cursor: pointer;
-}
-
-.saved {
-  margin-top: 20px;
-}
-
-.saved-item {
-  background: #f7efe5;
-  padding: 12px;
-  border-radius: 15px;
-  margin: 10px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.delete {
-  border: none;
-  background: #ead0c5;
-  border-radius: 8px;
-  padding: 6px 9px;
-  cursor: pointer;
-}
-
-@media(max-width:650px) {
-  .items {
-    grid-template-columns: repeat(2,1fr);
-  }
-
-  header h1 {
-    font-size: 35px;
-  }
+@media(max-width:600px){
+.items{grid-template-columns:repeat(2,1fr)}
+h1{font-size:36px}
 }
 </style>
 </head>
@@ -193,15 +142,253 @@ textarea {
 <body>
 
 <header>
-  <h1>my little world 🌷</h1>
-  <p>a tiny corner of the internet that belongs to me</p>
+<h1>my little world 🌷</h1>
+<p>a tiny corner of the internet that belongs to me</p>
 </header>
 
 <div class="room">
 
-  <div class="welcome">
-    <h2>Welcome home ✨</h2>
-    <p>Choose a little corner to explore.</p>
-  </div>
+<div class="welcome">
+<h2>Welcome home ✨</h2>
+<p>Choose a little corner to explore.</p>
+</div>
 
-  <div class="
+<div class="items">
+
+<button class="item" onclick="openBox('books')">
+<span class="emoji">📚</span>Bookshelf
+</button>
+
+<button class="item" onclick="openBox('music')">
+<span class="emoji">🎧</span>Music
+</button>
+
+<button class="item" onclick="openBox('watch')">
+<span class="emoji">🎬</span>Watchlist
+</button>
+
+<button class="item" onclick="openBox('memories')">
+<span class="emoji">🖼️</span>Memories
+</button>
+
+<button class="item" onclick="openBox('favorites')">
+<span class="emoji">🌸</span>Favorites
+</button>
+
+<button class="item" onclick="openBox('diary')">
+<span class="emoji">📓</span>Diary
+</button>
+
+</div>
+</div>
+
+
+<div class="modal" id="books">
+<div class="box">
+<button class="close" onclick="closeBox('books')">×</button>
+<h2>📚 My Bookshelf</h2>
+
+<input id="bookInput" placeholder="Enter a book name...">
+<button class="add" onclick="addBook()">Add book ✨</button>
+
+<div class="list" id="bookList"></div>
+</div>
+</div>
+
+
+<div class="modal" id="music">
+<div class="box">
+<button class="close" onclick="closeBox('music')">×</button>
+<h2>🎧 My Music</h2>
+
+<input id="musicInput" placeholder="Song or artist...">
+<button class="add" onclick="addItem('music')">Add song 🎵</button>
+
+<div class="list" id="musicList"></div>
+</div>
+</div>
+
+
+<div class="modal" id="watch">
+<div class="box">
+<button class="close" onclick="closeBox('watch')">×</button>
+<h2>🎬 My Watchlist</h2>
+
+<input id="watchInput" placeholder="Movie, anime or series...">
+<button class="add" onclick="addItem('watch')">Add 🎬</button>
+
+<div class="list" id="watchList"></div>
+</div>
+</div>
+
+
+<div class="modal" id="memories">
+<div class="box">
+<button class="close" onclick="closeBox('memories')">×</button>
+<h2>🖼️ My Memories</h2>
+
+<textarea id="memoriesInput" placeholder="Write about a memory..."></textarea>
+<button class="add" onclick="addItem('memories')">Save memory 🌷</button>
+
+<div class="list" id="memoriesList"></div>
+</div>
+</div>
+
+
+<div class="modal" id="favorites">
+<div class="box">
+<button class="close" onclick="closeBox('favorites')">×</button>
+<h2>🌸 My Favorites</h2>
+
+<input id="favoritesInput" placeholder="Something you love...">
+<button class="add" onclick="addItem('favorites')">Add favorite 💗</button>
+
+<div class="list" id="favoritesList"></div>
+</div>
+</div>
+
+
+<div class="modal" id="diary">
+<div class="box">
+<button class="close" onclick="closeBox('diary')">×</button>
+<h2>📓 My Diary</h2>
+
+<textarea id="diaryInput" placeholder="Write something..."></textarea>
+<button class="add" onclick="addItem('diary')">Save entry 📝</button>
+
+<div class="list" id="diaryList"></div>
+</div>
+</div>
+
+
+<script>
+
+function openBox(id){
+document.getElementById(id).style.display="flex";
+}
+
+function closeBox(id){
+document.getElementById(id).style.display="none";
+}
+
+
+/* BOOKS */
+
+function addBook(){
+
+let input=document.getElementById("bookInput");
+let name=input.value.trim();
+
+if(!name)return;
+
+let books=JSON.parse(localStorage.getItem("books")||"[]");
+
+books.push(name);
+
+localStorage.setItem("books",JSON.stringify(books));
+
+input.value="";
+showBooks();
+}
+
+function showBooks(){
+
+let list=document.getElementById("bookList");
+let books=JSON.parse(localStorage.getItem("books")||"[]");
+
+list.innerHTML="";
+
+books.forEach((book,i)=>{
+
+list.innerHTML+=`
+<div class="saved">
+<span>📖 ${book}</span>
+<button class="del" onclick="deleteBook(${i})">×</button>
+</div>
+`;
+
+});
+}
+
+function deleteBook(i){
+
+let books=JSON.parse(localStorage.getItem("books")||"[]");
+
+books.splice(i,1);
+
+localStorage.setItem("books",JSON.stringify(books));
+
+showBooks();
+}
+
+
+/* OTHER SECTIONS */
+
+function addItem(type){
+
+let input=document.getElementById(type+"Input");
+let value=input.value.trim();
+
+if(!value)return;
+
+let data=JSON.parse(localStorage.getItem(type)||"[]");
+
+data.push(value);
+
+localStorage.setItem(type,JSON.stringify(data));
+
+input.value="";
+
+showItems(type);
+}
+
+function showItems(type){
+
+let list=document.getElementById(type+"List");
+let data=JSON.parse(localStorage.getItem(type)||"[]");
+
+list.innerHTML="";
+
+data.forEach((item,i)=>{
+
+list.innerHTML+=`
+<div class="saved">
+<span>${item}</span>
+<button class="del" onclick="deleteItem('${type}',${i})">×</button>
+</div>
+`;
+
+});
+}
+
+function deleteItem(type,i){
+
+let data=JSON.parse(localStorage.getItem(type)||"[]");
+
+data.splice(i,1);
+
+localStorage.setItem(type,JSON.stringify(data));
+
+showItems(type);
+}
+
+
+/* LOAD SAVED ITEMS */
+
+showBooks();
+
+["music","watch","memories","favorites","diary"].forEach(showItems);
+
+
+/* APP SERVICE WORKER */
+
+if("serviceWorker" in navigator){
+
+navigator.serviceWorker.register("sw.js");
+
+}
+
+</script>
+
+</body>
+</html>
